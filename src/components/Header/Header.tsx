@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { IonAlert } from '@ionic/react'; // 1. Impor IonAlert
 import './Header.css';
-import logoPuskesmas from '../../assets/logo-puskesmas.png';
+import logoPuskesmas from '../../assets/logo-puskesmas.png'; // Pastikan path ini benar
 
 const Header: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false); // 2. State untuk alert
   const history = useHistory();
 
   const toggleSidebar = () => {
@@ -18,6 +20,41 @@ const Header: React.FC = () => {
   const navigateTo = (path: string) => {
     closeSidebar();
     history.push(path);
+  };
+
+  // 5. Fungsi yang menjalankan proses logout sebenarnya
+  const executeLogout = async () => {
+    const token = localStorage.getItem('access_token');
+
+    // Tutup alert dan sidebar
+    setShowLogoutAlert(false);
+    closeSidebar();
+
+    if (!token) {
+      history.push('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://klinik.aloycantik.xyz/api/logout', {
+        method: 'POST', // Sesuaikan metode API
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        console.error('Server logout failed:', response.status, await response.text());
+      }
+    } catch (error) {
+      console.error('Error during logout API call:', error);
+    } finally {
+      localStorage.removeItem('access_token');
+      // localStorage.removeItem('user_data'); // Contoh
+      history.push('/login');
+      // window.location.reload(); // Opsional
+    }
   };
 
   return (
@@ -38,10 +75,8 @@ const Header: React.FC = () => {
         </div>
       </header>
 
-      {/* Overlay muncul jika sidebar terbuka */}
       {sidebarOpen && <div className="sidebar-overlay" onClick={closeSidebar}></div>}
 
-      {/* Sidebar */}
       <nav className={`side-menu ${sidebarOpen ? 'open' : ''}`}>
         <ul>
           <li onClick={() => navigateTo('/dashboard')}>Beranda</li>
@@ -58,9 +93,37 @@ const Header: React.FC = () => {
             </ul>
           </li>
           <li onClick={() => navigateTo('/profil')}>Profil</li>
-          <li onClick={() => navigateTo('/logout')}>Logout</li>
+          {/* 3. Tampilkan alert saat Logout diklik */}
+          <li onClick={() => {
+            closeSidebar(); // Tutup sidebar dulu jika terbuka
+            setShowLogoutAlert(true);
+          }}>Logout</li> 
         </ul>
       </nav>
+
+      {/* 4. Definisikan IonAlert */}
+      <IonAlert
+        isOpen={showLogoutAlert}
+        onDidDismiss={() => setShowLogoutAlert(false)} // Tutup alert jika diklik di luar atau tombol cancel
+        header={'Konfirmasi Logout'}
+        message={'Apakah Anda yakin ingin logout?'}
+        buttons={[
+          {
+            text: 'Batal',
+            role: 'cancel', // Peran 'cancel' akan menutup alert
+            cssClass: 'secondary', // Opsional: styling
+            handler: () => {
+              setShowLogoutAlert(false);
+            }
+          },
+          {
+            text: 'Ya, Logout',
+            handler: () => {
+              executeLogout(); // Panggil fungsi logout sebenarnya
+            }
+          }
+        ]}
+      />
     </>
   );
 };

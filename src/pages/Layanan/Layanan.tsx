@@ -32,13 +32,13 @@ const Layanan: React.FC = () => {
               <div className="layanan-card-label">JANJI TEMU</div>
             </div>
           </Link>
-          <Link to="/rekam-medis" className="layanan-card-link">
+          <Link to="/rekammedis" className="layanan-card-link">
             <div className="layanan-card">
               <img src={rekamMedisImg} alt="Rekam Medis" />
               <div className="layanan-card-label">REKAM MEDIS</div>
             </div>
           </Link>
-          <Link to="/resep-obat" className="layanan-card-link">
+          <Link to="/resepobat" className="layanan-card-link">
             <div className="layanan-card">
               <img src={resepObatImg} alt="Resep Obat" />
               <div className="layanan-card-label">RESEP OBAT</div>

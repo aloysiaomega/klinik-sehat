@@ -21,9 +21,9 @@ const App: React.FC = () => (
         <Route path="/layanan" component={Layanan} exact />
         <Route path="/pasien" component={Pasien} exact />
         <Route path="/dokter" component={Dokter} exact />
-        <Route path="/janji-temu" component={JanjiTemu} exact />
-        <Route path="/rekam-medis" component={RekamMedis} exact />
-        <Route path="/resep-obat" component={ResepObat} exact />
+        <Route path="/janjitemu" component={JanjiTemu} exact />
+        <Route path="/rekammedis" component={RekamMedis} exact />
+        <Route path="/resepobat" component={ResepObat} exact />
         <Route path="/profil" component={Profil} exact /> {/* Tambahkan route Profil */}
         <Redirect from="/" to="/login" exact />
       </Switch>
