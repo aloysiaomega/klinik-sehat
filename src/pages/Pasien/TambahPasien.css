@@ -1,0 +1,66 @@
+/* Gaya utama untuk halaman tambah pasien */
+.tambah-pasien-page {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+  }
+  
+  /* Container form dengan lebar maksimal dan efek bayangan */
+  .form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Judul form */
+  .form-container h2 {
+    text-align: center;
+    color: #76916d;
+    margin-bottom: 20px;
+  }
+  
+  /* Gaya form pasien */
+  .pasien-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Setiap grup form */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-group input {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Tombol submit */
+  .submit-button {
+    background-color: #76916d;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #5d7a52;
+  }
+  

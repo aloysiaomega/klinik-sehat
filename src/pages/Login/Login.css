@@ -1,0 +1,96 @@
+/* login.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .login-wrapper {
+    background: linear-gradient(rgba(59, 59, 59, 0.432), rgba(255, 255, 255, 0.766)), url("../../assets/logo-puskesmas.png") center/cover no-repeat, #c7d3c0; 
+    background-size: 500px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  
+  .login-logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling khusus untuk IonIcon */
+  .login-user-icon {
+    font-size: 130px; 
+    padding-bottom: 40px; 
+    color: white; 
+    margin-bottom: 20px; 
+  }
+  
+  .login-form {
+    margin-bottom: 20px;
+  }
+  
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+.login-button {
+    display: block;
+    width: 40%;
+    height: 50px;
+    margin: 40px auto 0; /* margin kiri dan kanan auto untuk center alignment */
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #76916D;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+  
+.login-button:hover { 
+    background-color: #45a049; 
+}
+
+.login-alert {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-button {
+    display: block;
+    width: 40%;
+    height: 50px;
+    margin: 40px auto 0; /* margin auto untuk center alignment */
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #76916D;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.login-button:disabled {
+    background-color: #aaa; /* warna abu-abu saat proses login */
+    cursor: not-allowed;
+}

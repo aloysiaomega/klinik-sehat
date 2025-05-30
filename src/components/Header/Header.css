@@ -1,0 +1,124 @@
+/* --- Header Utama --- */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ABBCA6;
+  padding: 10px 15px;
+  color: black;
+  position: relative;
+  z-index: 110;
+}
+
+.header-left {
+  cursor: pointer;
+}
+
+.menu-icon {
+  font-size: 24px;
+}
+
+.header-center {
+  flex: 2;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-text .clinic,
+.header-text .health {
+  letter-spacing: 5px;
+  font-size: 16px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: black;
+}
+
+/* --- Side Menu --- */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 120;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu li {
+  padding: 12px 10px;
+  font-size: 18px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background 0.3s, padding-left 0.3s;
+}
+
+.side-menu li:hover {
+  background-color: #f5f5f5;
+  padding-left: 15px;
+}
+
+/* --- Optional: Submenu Styling (Jika Diperlukan) --- */
+.parent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.sub-menu {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 5px;
+}
+
+.sub-menu li {
+  padding: 10px 5px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sub-menu li:hover {
+  background-color: #e0e0e0;
+}
+
+/* --- Overlay --- */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
