@@ -60,7 +60,7 @@ const JanjiTemu: React.FC = () => {
         setLoading(true);
 
         // Ambil data pasien
-        const responsePatients = await fetch('http://klinik.aloycantik.xyz/api/patients', {
+        const responsePatients = await fetch('https://klinik.aloycantik.xyz/api/patients', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -77,7 +77,7 @@ const JanjiTemu: React.FC = () => {
         setPatients(fetchedPatients);
 
         // Ambil data dokter
-        const responseDoctors = await fetch('http://klinik.aloycantik.xyz/api/doctors', {
+        const responseDoctors = await fetch('https://klinik.aloycantik.xyz/api/doctors', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -94,7 +94,7 @@ const JanjiTemu: React.FC = () => {
         setDoctors(fetchedDoctors);
 
         // Ambil data appointment
-        const responseAppointments = await fetch('http://klinik.aloycantik.xyz/api/appointments', {
+        const responseAppointments = await fetch('https://klinik.aloycantik.xyz/api/appointments', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -192,7 +192,7 @@ const JanjiTemu: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(`http://klinik.aloycantik.xyz/api/appointments/${appointmentToDelete.id}`, {
+      const response = await fetch(`https://klinik.aloycantik.xyz/api/appointments/${appointmentToDelete.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -230,10 +230,10 @@ const JanjiTemu: React.FC = () => {
     };
 
     try {
-      let url = 'http://klinik.aloycantik.xyz/api/appointments';
+      let url = 'https://klinik.aloycantik.xyz/api/appointments';
       let method: 'POST' | 'PUT' = 'POST';
       if (isEditing && selectedAppointmentId) {
-        url = `http://klinik.aloycantik.xyz/api/appointments/${selectedAppointmentId}`;
+        url = `https://klinik.aloycantik.xyz/api/appointments/${selectedAppointmentId}`;
         method = 'PUT';
       }
       const response = await fetch(url, {

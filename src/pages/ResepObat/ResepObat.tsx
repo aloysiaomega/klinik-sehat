@@ -52,7 +52,7 @@ const ResepObat: React.FC = () => {
         setLoading(true);
 
         // Ambil data rekam medis
-        const responseMedicalRecords = await fetch('http://klinik.aloycantik.xyz/api/medical_records', {
+        const responseMedicalRecords = await fetch('https://klinik.aloycantik.xyz/api/medical_records', {
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         });
         if (!responseMedicalRecords.ok) {
@@ -66,7 +66,7 @@ const ResepObat: React.FC = () => {
         setMedicalRecords(fetchedMedicalRecords);
 
         // Ambil data resep obat
-        const responsePrescriptions = await fetch('http://klinik.aloycantik.xyz/api/prescriptions', {
+        const responsePrescriptions = await fetch('https://klinik.aloycantik.xyz/api/prescriptions', {
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         });
         if (!responsePrescriptions.ok) {
@@ -140,7 +140,7 @@ const ResepObat: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(`http://klinik.aloycantik.xyz/api/prescriptions/${prescriptionToDelete.id}`, {
+      const response = await fetch(`https://klinik.aloycantik.xyz/api/prescriptions/${prescriptionToDelete.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       });

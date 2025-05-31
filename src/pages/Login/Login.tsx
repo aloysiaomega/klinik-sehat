@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://klinik.aloycantik.xyz/api/login', {
+      const response = await axios.post('https://klinik.aloycantik.xyz/api/login', {
         email,
         password,
       });

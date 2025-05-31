@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
     }
 
     // Fetch data janji temu pasien yang berstatus selesai
-    fetch('http://klinik.aloycantik.xyz/api/appointments?status=selesai', {
+    fetch('https://klinik.aloycantik.xyz/api/appointments?status=selesai', {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
       .catch((error) => console.error('Gagal mengambil data janji temu:', error));
 
     // Fetch daftar dokter
-    fetch('http://klinik.aloycantik.xyz/api/doctors', {
+    fetch('https://klinik.aloycantik.xyz/api/doctors', {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
     })
       .then((response) => response.json())

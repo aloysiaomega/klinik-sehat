@@ -43,7 +43,7 @@ const Pasien: React.FC = () => {
       }
       try {
         setLoading(true);
-        const response = await fetch('http://klinik.aloycantik.xyz/api/patients', {
+        const response = await fetch('https://klinik.aloycantik.xyz/api/patients', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -133,7 +133,7 @@ const Pasien: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(`http://klinik.aloycantik.xyz/api/patients/${patientToDelete.id}`, {
+      const response = await fetch(`https://klinik.aloycantik.xyz/api/patients/${patientToDelete.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -172,10 +172,10 @@ const Pasien: React.FC = () => {
       kontak: newKontak,
     };
     try {
-      let url = 'http://klinik.aloycantik.xyz/api/patients';
+      let url = 'https://klinik.aloycantik.xyz/api/patients';
       let method: 'POST' | 'PUT' = 'POST';
       if (isEditing && selectedPatientId) {
-        url = `http://klinik.aloycantik.xyz/api/patients/${selectedPatientId}`;
+        url = `https://klinik.aloycantik.xyz/api/patients/${selectedPatientId}`;
         method = 'PUT';
       }
       const response = await fetch(url, {

@@ -45,7 +45,7 @@ const Dokter: React.FC = () => {
 
       try {
         setLoading(true);
-        const response = await fetch('http://klinik.aloycantik.xyz/api/doctors', {
+        const response = await fetch('https://klinik.aloycantik.xyz/api/doctors', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -141,7 +141,7 @@ const Dokter: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(`http://klinik.aloycantik.xyz/api/doctors/${doctorToDelete.id}`, {
+      const response = await fetch(`https://klinik.aloycantik.xyz/api/doctors/${doctorToDelete.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -187,11 +187,11 @@ const Dokter: React.FC = () => {
     };
 
     try {
-      let url = 'http://klinik.aloycantik.xyz/api/doctors';
+      let url = 'https://klinik.aloycantik.xyz/api/doctors';
       let method: 'POST' | 'PUT' = 'POST';
 
       if (isEditing && selectedDoctorId) {
-        url = `http://klinik.aloycantik.xyz/api/doctors/${selectedDoctorId}`;
+        url = `https://klinik.aloycantik.xyz/api/doctors/${selectedDoctorId}`;
         method = 'PUT';
       }
 

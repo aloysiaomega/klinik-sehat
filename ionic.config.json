@@ -1,5 +1,7 @@
 {
   "name": "klinik-sehat",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react-vite"
 }

@@ -36,7 +36,7 @@ const Header: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://klinik.aloycantik.xyz/api/logout', {
+      const response = await fetch('https://klinik.aloycantik.xyz/api/logout', {
         method: 'POST', // Sesuaikan metode API
         headers: {
           'Content-Type': 'application/json',

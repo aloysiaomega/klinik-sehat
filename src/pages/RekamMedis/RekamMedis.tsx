@@ -54,7 +54,7 @@ const RekamMedis: React.FC = () => {
         setLoading(true);
 
         // Ambil data pasien
-        const responsePatients = await fetch('http://klinik.aloycantik.xyz/api/patients', {
+        const responsePatients = await fetch('https://klinik.aloycantik.xyz/api/patients', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -71,7 +71,7 @@ const RekamMedis: React.FC = () => {
         setPatients(fetchedPatients);
 
         // Ambil data rekam medis dari API medical_records
-        const responseRecords = await fetch('http://klinik.aloycantik.xyz/api/medical_records', {
+        const responseRecords = await fetch('https://klinik.aloycantik.xyz/api/medical_records', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -166,7 +166,7 @@ const RekamMedis: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(`http://klinik.aloycantik.xyz/api/medical_records/${recordToDelete.id}`, {
+      const response = await fetch(`https://klinik.aloycantik.xyz/api/medical_records/${recordToDelete.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -204,10 +204,10 @@ const RekamMedis: React.FC = () => {
     };
 
     try {
-      let url = 'http://klinik.aloycantik.xyz/api/medical_records';
+      let url = 'https://klinik.aloycantik.xyz/api/medical_records';
       let method: 'POST' | 'PUT' = 'POST';
       if (isEditing && selectedRecordId) {
-        url = `http://klinik.aloycantik.xyz/api/medical_records/${selectedRecordId}`;
+        url = `https://klinik.aloycantik.xyz/api/medical_records/${selectedRecordId}`;
         method = 'PUT';
       }
       const response = await fetch(url, {
