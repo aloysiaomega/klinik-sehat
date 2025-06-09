@@ -1,53 +1,107 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../../components/Header/Header';
 import './Profil.css';
 
 const Profil: React.FC = () => {
+  // State data user
   const [fotoProfil, setFotoProfil] = useState<string | null>(null);
-  const [nama, setNama] = useState<string>('Aloysia Omega');
-  const [email, setEmail] = useState<string>('aloysia@gmail.com');
-  const [telepon, setTelepon] = useState<string>('088745698510');
-  const [alamat, setAlamat] = useState<string>('Jl. Jalan No.10, Banjarsari, Jawa Tengah');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [nama, setNama] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [telepon, setTelepon] = useState<string>('');
+  const [alamat, setAlamat] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>('');
 
-  // Ambil foto profil dari localStorage saat halaman dimuat
+  // Ref untuk input file tersembunyi
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Ambil data user dari API saat komponen dimuat
   useEffect(() => {
-    const storedFoto = localStorage.getItem('fotoProfil');
-    if (storedFoto) {
-      setFotoProfil(storedFoto);
-    }
+    const token = localStorage.getItem('access_token');
+    if (!token) return;
+
+    fetch('https://klinik.aloycantik.xyz/api/user', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Asumsikan respons API mengembalikan: { nama, email, telepon, alamat, foto }
+        setNama(data.nama);
+        setEmail(data.email);
+        setTelepon(data.telepon);
+        setAlamat(data.alamat);
+        if (data.foto) {
+          setFotoProfil(`https://klinik.aloycantik.xyz/storage/profile_images/${data.foto}`);
+        }
+      })
+      .catch((err) => console.error('Gagal mengambil data user:', err));
   }, []);
 
-  // Fungsi untuk menangani perubahan foto profil
+  // Fungsi untuk menangani perubahan foto profil melalui input file
   const handleFotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onload = () => {
-        const imageData = reader.result as string;
-        setFotoProfil(imageData);
-        localStorage.setItem('fotoProfil', imageData);
+        setFotoProfil(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // Fungsi menyimpan perubahan profil
+  // Fungsi untuk memicu klik pada input file tersembunyi (untuk membuka kamera)
+  const handleAmbilGambar = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  // Fungsi menyimpan perubahan ke API
   const handleSaveChanges = () => {
-    setIsProcessing(true); // Menampilkan "Memproses..."
+    setIsProcessing(true);
+    const token = localStorage.getItem('access_token');
+    if (!token) return;
 
-    setTimeout(() => {
-      localStorage.setItem('nama', nama);
-      localStorage.setItem('email', email);
-      localStorage.setItem('telepon', telepon);
-      localStorage.setItem('alamat', alamat);
+    const formData = new FormData();
+    formData.append('nama', nama);
+    formData.append('email', email);
+    formData.append('telepon', telepon);
+    formData.append('alamat', alamat);
+    if (selectedFile) {
+      formData.append('foto', selectedFile);
+    }
 
-      setIsProcessing(false); // Sembunyikan "Memproses..."
-      setSuccessMessage('Perubahan berhasil disimpan!'); // Tampilkan notifikasi sukses
-
-      setTimeout(() => setSuccessMessage(''), 3000); // Hapus notifikasi setelah 3 detik
-    }, 2000); // Simulasi proses penyimpanan selama 2 detik
+    fetch('https://klinik.aloycantik.xyz/api/user', {
+      method: 'PUT', // atau POST sesuai dengan API Anda
+      headers: {
+        'Authorization': `Bearer ${token}`
+        // Jangan sertakan Content-Type ketika menggunakan FormData
+      },
+      body: formData,
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Gagal menyimpan perubahan.');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.foto) {
+          setFotoProfil(`https://klinik.aloycantik.xyz/storage/profile_images/${data.foto}`);
+        }
+        setIsProcessing(false);
+        setSuccessMessage('Perubahan berhasil disimpan!');
+        setTimeout(() => setSuccessMessage(''), 3000);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsProcessing(false);
+      });
   };
 
   return (
@@ -68,13 +122,22 @@ const Profil: React.FC = () => {
             )}
           </div>
 
-          {/* Input Upload Foto */}
-          <label className="upload-label">
-            Pilih Foto
-            <input type="file" accept="image/*" onChange={handleFotoChange} className="upload-input" />
-          </label>
+          {/* Input file tersembunyi untuk upload dan capture */}
+          <input 
+            type="file" 
+            accept="image/*" 
+            capture="environment" 
+            onChange={handleFotoChange} 
+            ref={fileInputRef}
+            className="upload-input"
+          />
 
-          {/* Info Profil yang Bisa Diedit */}
+          {/* Tombol untuk membuka kamera / ambil gambar */}
+          <button className="capture-button" onClick={handleAmbilGambar}>
+            Ambil Gambar
+          </button>
+
+          {/* Form info profil yang bisa diedit */}
           <div className="profil-info">
             <div className="info-item">
               <label>Nama:</label>
@@ -94,10 +157,7 @@ const Profil: React.FC = () => {
             </div>
           </div>
 
-          {/* Tampilan "Memproses..." */}
           {isProcessing && <p className="processing-message">Memproses...</p>}
-
-          {/* Tampilan notifikasi sukses */}
           {successMessage && <p className="success-message">{successMessage}</p>}
 
           <button className="edit-button" onClick={handleSaveChanges} disabled={isProcessing}>
@@ -106,7 +166,6 @@ const Profil: React.FC = () => {
         </div>
       </div>
 
-      {/* Footer di bagian bawah halaman */}
       <footer className="profil-footer">
         <p>&copy; 2025 Klinik Sehat | Semua Hak Dilindungi</p>
       </footer>
